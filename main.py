@@ -63,4 +63,7 @@ while True:
 
     # Sleep until ready to post another video!
     #time.sleep(60 * 60 * 24 - 1)
+    
     print("Completed")
+    # Stop the while loop.
+    break

@@ -22,7 +22,7 @@ def scale_gif(path, scale, new_path=None):
 def get_new_frames(gif, scale):
     new_frames = []
     actual_frames = gif.n_frames
-    for frame in range(actual_frames):
+    for frame in range(actual_frames): 
         gif.seek(frame)
         new_frame = Image.new('RGBA', gif.size)
         new_frame.paste(gif)
