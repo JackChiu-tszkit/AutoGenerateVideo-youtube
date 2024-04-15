@@ -28,6 +28,7 @@ def add_return_comment(comment):
             need_return += 30
             return_added += 1
         new_comment += letter
+        
     return new_comment, return_added
         
 
@@ -50,7 +51,8 @@ class CreateMovie():
         
         # After we have out clip.
         clip = concatenate_videoclips(clips)
-
+        
+        
         # Hack to fix getting extra frame errors??
         clip = clip.subclip(0,60)
 
@@ -59,10 +61,14 @@ class CreateMovie():
         random.shuffle(colors)
         text_clips = []
         notification_sounds = []
+        
         for i, post in enumerate(post_data):
+            
             return_comment, return_count = add_return_comment(post['Best_comment'])
+            
             txt = TextClip(return_comment, font='Courier',
                         fontsize=38, color=colors.pop(), bg_color='black')
+           
             txt = txt.on_color(col_opacity=.3)
             txt = txt.set_position((5,500))
             txt = txt.set_start((0, 3 + (i * 12))) # (min, s)
@@ -70,6 +76,7 @@ class CreateMovie():
             txt = txt.crossfadein(0.5)
             txt = txt.crossfadeout(0.5)
             text_clips.append(txt)
+            
             return_comment, _ = add_return_comment(post['best_reply'])
             txt = TextClip(return_comment, font='Courier',
             fontsize=38, color=colors.pop(), bg_color='black')
@@ -80,12 +87,14 @@ class CreateMovie():
             txt = txt.crossfadein(0.5)
             txt = txt.crossfadeout(0.5)
             text_clips.append(txt)
+            
             notification = AudioFileClip(os.path.join(music_path, f"notification.mp3"))
             notification = notification.set_start((0, 3 + (i * 12)))
             notification_sounds.append(notification)
             notification = AudioFileClip(os.path.join(music_path, f"notification.mp3"))
             notification = notification.set_start((0, 5 + (i * 12)))
             notification_sounds.append(notification)
+            
         
         music_file = os.path.join(music_path, f"music{random.randint(0,4)}.mp3")
         music = AudioFileClip(music_file)
@@ -101,7 +110,7 @@ class CreateMovie():
         clip.audio = new_audioclip
         clip.write_videofile("video.mp4", fps = 24)
 
-        
+      
         if os.path.exists(os.path.join(dir_path, "video_clips.mp4")):
             os.remove(os.path.join(dir_path, "video_clips.mp4"))
         else:

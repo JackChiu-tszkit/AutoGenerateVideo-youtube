@@ -148,4 +148,5 @@ if __name__ == '__main__':
         "keywords":"meme,reddit",
         "privacyStatus":"private"
     }
+    print("Uploading video")
     update_video(video_data)
